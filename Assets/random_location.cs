@@ -30,10 +30,11 @@ public class random_location : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        float x = Input.GetAxis("Horizontal");
-        float z = Input.GetAxis("Vertical");
-        Vector3 movement = new Vector3(x, 0, z);
-        movement = Vector3.ClampMagnitude(movement, 1);
-        transform.Translate(movement * speed * Time.deltaTime);
+        // Keyboard movement
+        //float x = Input.GetAxis("Horizontal");
+        //float z = Input.GetAxis("Vertical");
+        //Vector3 movement = new Vector3(x, 0, z);
+        //movement = Vector3.ClampMagnitude(movement, 1);
+        //transform.Translate(movement * speed * Time.deltaTime);
     }
 }
