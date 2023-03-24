@@ -8,8 +8,17 @@ public class random_location : MonoBehaviour
 {
     public Text LivesRemainingText;
     public Text GameOverText;
+    public float startX;
+    public float startY;
+    public float startRot;
+
+    [SerializeField]
     float x;
+
+    [SerializeField]
     float y;
+
+    [SerializeField]
     float z;
     Vector3 pos;
     float timePrev;
@@ -23,11 +32,19 @@ public class random_location : MonoBehaviour
         Score.scoreStart(10);
         speed = 2;
         numTimesBeforeScoreDecrease = 50;
-        x = 24.0F;
+
+        startX = 20.475f;
+        startY = 0.25f;
+        startRot = -104.64f;
+
+        x = 22.0F;
         y = 0.25F;
         z = Random.Range(-4, 4);
         pos = new Vector3(x, y, z);
         transform.position = pos;
+
+        transform.rotation = Quaternion.Euler(new Vector3(0f, startRot, 0f));
+            
         timePrev = 0;
         for (int i = 0; i < Random.Range(30, 35); i++) {
             RandomCylinderGenerator();

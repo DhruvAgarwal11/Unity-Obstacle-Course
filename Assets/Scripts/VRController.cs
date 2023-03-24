@@ -10,8 +10,11 @@ public class VRController : MonoBehaviour
 
     public SteamVR_Action_Boolean m_MovePress = null;
     public SteamVR_Action_Vector2 m_MoveValue = null;
+    public SteamVR_Action_Boolean m_RotPress = null;
+    public SteamVR_Action_Vector2 m_RotValue = null;
 
     private float m_Speed = 0.0f;
+    private float m_Orient;
 
     private CharacterController m_CharacterController = null;
     private Transform m_CameraRig = null;
@@ -26,6 +29,7 @@ public class VRController : MonoBehaviour
     {
         m_CameraRig = SteamVR_Render.Top().origin;
         m_Head = SteamVR_Render.Top().head;
+        m_Orient = transform.eulerAngles.y;
     }
 
     // Update is called once per frame
@@ -33,7 +37,7 @@ public class VRController : MonoBehaviour
     {
         HandleHead();
         CalculateMvmt();
-        HandleHeight();
+        //HandleHeight();
     }
 
     private void HandleHead()
@@ -52,6 +56,11 @@ public class VRController : MonoBehaviour
 
     private void CalculateMvmt()
     {
+        if (m_MoveValue == null)
+        {
+            return;
+        }
+
         // find mvmt orientation
         Vector3 orientationEuler = new Vector3(0, transform.eulerAngles.y, 0);
         Quaternion orientation = Quaternion.Euler(orientationEuler);
@@ -72,13 +81,38 @@ public class VRController : MonoBehaviour
 
             // orientation
             movement += orientation * (m_Speed * Vector3.forward) * Time.deltaTime;
-
         }
 
         // apply mvmt
         m_CharacterController.Move(movement);
     }
 
+    private void CalculateRot()
+    {
+        if (m_RotValue == null)
+        {
+            return;
+        }
+
+        // find curr orientation
+        Vector3 orientationEuler = new Vector3(0, transform.eulerAngles.y, 0);
+        Quaternion orientation = Quaternion.Euler(orientationEuler);
+        m_Orient = transform.eulerAngles.y;
+
+        // if pressed
+        if (m_RotPress.state)
+        {
+            // clamp
+            m_Orient += m_MoveValue.axis.x * m_Sensitivity;
+            m_Orient = Mathf.Clamp(m_Orient, -360f, 360f);
+
+        }
+
+        // apply rotation
+        this.transform.Rotate(new Vector3(0, m_Orient * Time.deltaTime, 0));
+    }
+
+    // causes some weird centering issues, need to recalculate, not that necessary
     private void HandleHeight()
     {
         // get head in local space
@@ -100,4 +134,5 @@ public class VRController : MonoBehaviour
         // apply
         m_CharacterController.center = newCenter;
     }
+
 }
