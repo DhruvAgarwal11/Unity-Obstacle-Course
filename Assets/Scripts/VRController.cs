@@ -7,6 +7,7 @@ public class VRController : MonoBehaviour
 {
     public float m_Sensitivity = 0.1f;
     public float m_MaxSpeed = 1.0f;
+    public float m_rotationIncrement = 20f;
 
     public SteamVR_Action_Boolean m_MovePress = null;
     public SteamVR_Action_Vector2 m_MoveValue = null;
@@ -37,6 +38,7 @@ public class VRController : MonoBehaviour
     {
         HandleHead();
         CalculateMvmt();
+        CalculateRot();
         //HandleHeight();
     }
 
@@ -62,18 +64,18 @@ public class VRController : MonoBehaviour
         }
 
         // find mvmt orientation
-        Vector3 orientationEuler = new Vector3(0, transform.eulerAngles.y, 0);
+        Vector3 orientationEuler = new Vector3(0, m_Head.eulerAngles.y, 0);
         Quaternion orientation = Quaternion.Euler(orientationEuler);
         Vector3 movement = Vector3.zero;
 
         // not moving
-        if (m_MovePress.GetStateUp(SteamVR_Input_Sources.Any))
+        if (m_MovePress.GetStateUp(SteamVR_Input_Sources.RightHand))
         {
             m_Speed = 0;
         }
 
         // if pressed
-        if (m_MovePress.state)
+        if (m_MovePress.GetState(SteamVR_Input_Sources.RightHand))
         {
             // clamp
             m_Speed += m_MoveValue.axis.y * m_Sensitivity;
@@ -89,27 +91,22 @@ public class VRController : MonoBehaviour
 
     private void CalculateRot()
     {
-        if (m_RotValue == null)
+        float snapValue = 0.0f;
+
+        if (m_RotPress.GetState(SteamVR_Input_Sources.LeftHand) && (m_RotValue.axis.y <= 0.45 && m_RotValue.axis.y >= -0.6))
         {
-            return;
+            if (m_RotValue.axis.x <= 0)
+            {
+                snapValue = -Mathf.Abs(m_rotationIncrement);
+            }
+            else
+            {
+                snapValue = Mathf.Abs(m_rotationIncrement);
+            }
+
+            transform.RotateAround(m_Head.position, Vector3.up, snapValue * Time.deltaTime);
         }
 
-        // find curr orientation
-        Vector3 orientationEuler = new Vector3(0, transform.eulerAngles.y, 0);
-        Quaternion orientation = Quaternion.Euler(orientationEuler);
-        m_Orient = transform.eulerAngles.y;
-
-        // if pressed
-        if (m_RotPress.state)
-        {
-            // clamp
-            m_Orient += m_MoveValue.axis.x * m_Sensitivity;
-            m_Orient = Mathf.Clamp(m_Orient, -360f, 360f);
-
-        }
-
-        // apply rotation
-        this.transform.Rotate(new Vector3(0, m_Orient * Time.deltaTime, 0));
     }
 
     // causes some weird centering issues, need to recalculate, not that necessary
