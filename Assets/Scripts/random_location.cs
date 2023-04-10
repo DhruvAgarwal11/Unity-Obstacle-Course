@@ -10,18 +10,9 @@ public class random_location : MonoBehaviour
     public Text LivesRemainingText;
     public Text GameOverText;
     public float speed = 3.5f;
-
-    [SerializeField]
     float x;
-
-    [SerializeField]
     float y;
-
-    [SerializeField]
     float z;
-
-    public float startRot;
-
     Vector3 pos;
     float timePrev;
     float numFramesBeforeScoreDecrease;
@@ -30,12 +21,10 @@ public class random_location : MonoBehaviour
     public GameObject cylinder;
     GameObject[] cylinders;
     public int numTrials;
-    public int curTrialNum;
+    int curTrialNum;
     Vector3 movement;
-    public bool gameOver;
+    bool gameOver;
     int numFramesBeforeNextTrial;
-
-    public int counter = 1; // remove later, band aid fix
     
     // Start is called before the first frame update
     void Start()
@@ -55,7 +44,6 @@ public class random_location : MonoBehaviour
         //start the first trial
         curTrialNum = 1;
         StartNewTrial();
-
     }
 
     void StartNewTrial() {
@@ -66,10 +54,11 @@ public class random_location : MonoBehaviour
         Score.displayGameOver(GameOverText, "");
 
         //Reset cube location
-        x = 24.0f;
-        y = 0.25f;
-        z = Random.Range(-2, 4);
-        startRot = -85.273f;
+        x = 24.0F;
+        y = 0.25F;
+        z = Random.Range(-4, 4);
+        pos = new Vector3(x, y, z);
+        transform.position = pos;
 
         //Time between previous frame and current frame
         timePrev = 0;
@@ -88,8 +77,6 @@ public class random_location : MonoBehaviour
         for (int i = 0; i < cylinders.Length; i++) {
             RandomCylinderGenerator(i);
         }
-
-        counter = 0;
     }
 
     void OnTriggerEnter(Collider other)
@@ -104,7 +91,7 @@ public class random_location : MonoBehaviour
         //move the object back
         transform.Translate(-movement * Time.deltaTime * speed);
         numFramesBeforeScoreDecrease--;
-        if (numFramesBeforeScoreDecrease <= 0) {
+        if (numFramesBeforeScoreDecrease == 0) {
             Score.decreaseScore(GameOverText);
             numFramesBeforeScoreDecrease = Application.targetFrameRate;
         }
@@ -113,7 +100,6 @@ public class random_location : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(Application.targetFrameRate);
         displayScore(LivesRemainingText);
         float x = Input.GetAxis("Horizontal");
         float z = Input.GetAxis("Vertical");
@@ -128,7 +114,7 @@ public class random_location : MonoBehaviour
                 gameOver = true;
                 return;
             }
-            //MoveObject(x, z, timePrev); // TODO: Add VR check
+            MoveObject(x, z, timePrev);
         }
         else {
             numFramesBeforeNextTrial--;
