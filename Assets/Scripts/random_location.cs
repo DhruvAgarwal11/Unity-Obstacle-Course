@@ -6,6 +6,7 @@ using System.Collections.Generic;
 
 using static Score;
 using static ReadWriteMap;
+using static GenerateRandomMap;
 
 public class random_location : MonoBehaviour 
 {
@@ -32,6 +33,7 @@ public class random_location : MonoBehaviour
     Vector3 finalSpot = new Vector3(-22.0f, 1.0f, 0.0f);
     ArrayList finalList;
     int curPointGoingTo = 0;
+    public string randomOrNew;
     
     // Start is called before the first frame update
     void Start() 
@@ -85,13 +87,10 @@ public class random_location : MonoBehaviour
         
         //Generate random cylinders across the board
         cylinders = new GameObject[Random.Range(minNumCylinders, maxNumCylinders)];
-        for (int i = 0; i < cylinders.Length; i++) 
-        {
-            RandomCylinderGenerator(i);
-        }
-        Dictionary<Vector3, SortedDictionary<float, Vector3>> pointsToOtherPoints = cylindersNothingBetween();
-        finalList = djikstra(pointsToOtherPoints);
-        mapCoordinates = new MapCoordinates(cylinders.Length, finalList, cylinders);
+
+        mapCoordinates = GenerateRandomMap.generateRandomMap(minNumCylinders, maxNumCylinders);
+        finalList = mapCoordinates.getOptimalPath();
+        curPointGoingTo = 0;
         // ReadWriteMap.GameWriteMap("out", mapCoordinates)
         foreach(var a in finalList) 
         {

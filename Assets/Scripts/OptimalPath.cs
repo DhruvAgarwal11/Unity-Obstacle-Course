@@ -7,10 +7,10 @@ using Random=System.Random;
 
 public static class OptimalPath {
 
-    static Vector3 startPoint = new Vector3(24.0F, 0.25F, 0F);
-    static Vector3 finalSpot = new Vector3(-22.0f, 1.0f, 0.0f);
+    public static Vector3 startPoint = new Vector3(24.0F, 0.25F, 0F);
+    public static Vector3 finalSpot = new Vector3(-22.0f, 1.0f, 0.0f);
 
-    static ArrayList djikstra(Dictionary<Vector3, SortedDictionary<float, Vector3>> pToP) {
+    public static ArrayList djikstra(Dictionary<Vector3, SortedDictionary<float, Vector3>> pToP) {
         Vector3 curPoint = startPoint;
         Dictionary<Vector3, Vector3> mappingsBack = new Dictionary<Vector3, Vector3>();
         float curDistance = 0;
@@ -48,7 +48,7 @@ public static class OptimalPath {
     /**
     Creates a graph with the edges between vertices that the user can go along
     */
-    static void addToGraphNodes(Vector3[] cylinderLocs, Dictionary<Vector3, SortedDictionary<float, Vector3>> allGraphNodes, Vector3 p1, Vector3 p2) {
+    public static void addToGraphNodes(Vector3[] cylinderLocs, Dictionary<Vector3, SortedDictionary<float, Vector3>> allGraphNodes, Vector3 p1, Vector3 p2) {
         if (cylinderNotInWay(cylinderLocs, p1, p2, new Vector3[0])) {
             if (!allGraphNodes.ContainsKey(p1)) {
                 allGraphNodes.Add(p1, new SortedDictionary<float, Vector3>());
@@ -60,7 +60,7 @@ public static class OptimalPath {
     /**
     Finds 
     */
-    static bool cylinderNotInWay(Vector3[] cylinderLocs, Vector3 position1, Vector3 position2, Vector3[] cylinderLocsNotIncluded) {
+    public static bool cylinderNotInWay(Vector3[] cylinderLocs, Vector3 position1, Vector3 position2, Vector3[] cylinderLocsNotIncluded) {
         float slope = (position2.z - position1.z)/(position2.x - position1.x);
         float perpSlope = -1/slope;
         float intercept = position1.z - slope * position1.x;
@@ -89,7 +89,7 @@ public static class OptimalPath {
         return true;
     }
 
-    static Dictionary<Vector3, SortedDictionary<float, Vector3>> cylindersNothingBetween(Vector3[] cylinderLocs) {
+    public static Dictionary<Vector3, SortedDictionary<float, Vector3>> cylindersNothingBetween(Vector3[] cylinderLocs) {
         var nothingBetweenPairs = new ArrayList();
         for (int i = 0; i < cylinderLocs.Length; i++) {
             for (int j = i + 1; j < cylinderLocs.Length; j++) {
@@ -127,7 +127,7 @@ public static class OptimalPath {
         return allGraphNodes; 
     }
 
-    static Vector3 AverageVectors(Vector3 v1, Vector3 v2) {
+    public static Vector3 AverageVectors(Vector3 v1, Vector3 v2) {
         float x = (v1.x + v2.x) / 2f;
         float y = (v1.y + v2.y) / 2f;
         float z = (v1.z + v2.z) / 2f;

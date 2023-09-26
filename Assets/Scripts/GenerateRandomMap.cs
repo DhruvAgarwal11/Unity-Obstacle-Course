@@ -5,6 +5,7 @@ using static System.Math;
 using System.Collections;
 using System.Collections.Generic;
 using Random=System.Random;
+using static OptimalPath;
 
 public static class GenerateRandomMap{
 
@@ -16,6 +17,9 @@ public static class GenerateRandomMap{
         for (int i = 0; i < cylinderLocs.Length; i++) {
             RandomCylinderGenerator(cylinderLocs, i);
         }
+        Dictionary<Vector3, SortedDictionary<float, Vector3>> pointsToOtherPoints = OptimalPath.cylindersNothingBetween(cylinderLocs);
+        ArrayList finalList = OptimalPath.djikstra(pointsToOtherPoints);
+        return new MapCoordinates(cylinderLocs.Length, finalList, cylinderLocs);
     }
 
     /**
