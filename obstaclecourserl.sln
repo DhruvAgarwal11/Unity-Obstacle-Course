@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assembly-CSharp", "Assembly-CSharp.csproj", "{4b6628c5-e03d-aa78-b096-d08de7942d50}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AimingRig", "AimingRig.csproj", "{ae3cba11-a9e2-3611-48d4-12015ed0eebb}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4b6628c5-e03d-aa78-b096-d08de7942d50}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4b6628c5-e03d-aa78-b096-d08de7942d50}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4b6628c5-e03d-aa78-b096-d08de7942d50}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4b6628c5-e03d-aa78-b096-d08de7942d50}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ae3cba11-a9e2-3611-48d4-12015ed0eebb}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ae3cba11-a9e2-3611-48d4-12015ed0eebb}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ae3cba11-a9e2-3611-48d4-12015ed0eebb}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ae3cba11-a9e2-3611-48d4-12015ed0eebb}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

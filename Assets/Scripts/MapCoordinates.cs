@@ -19,16 +19,21 @@ public class MapCoordinates {
         return cylinderLocs;
     }
 
-    public MapCoordinates(int numCylinders, ArrayList optimalPath, GameObject[] cylinders) {
+    public MapCoordinates(int numCylinders, List<(int, int)> optimalPath, GameObject[] cylinders) {
         this.numCylinders = numCylinders;
-        this.optimalPath = optimalPath;
+        ArrayList finalOptimalPath = new ArrayList();
+        for (int i = 0; i < optimalPath.Count; i++)
+        {
+            finalOptimalPath.Add(new Vector3(optimalPath[i].Item1, 0, optimalPath[i].Item2));
+        }
+        this.optimalPath = finalOptimalPath;
         Vector3[] store = new Vector3[cylinders.Length];
         for (int i = 0; i < cylinders.Length; i++) {
             store[i] = cylinders[i].transform.position;
         }
         this.cylinderLocs = store;
     }
-
+    
     public MapCoordinates(int numCylinders, ArrayList optimalPath, Vector3[] cylinderLocs) {
         this.numCylinders = numCylinders;
         this.optimalPath = optimalPath;

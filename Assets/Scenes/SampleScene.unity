@@ -475,10 +475,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   LivesRemainingText: {fileID: 414249024}
-  GameOverText: {fileID: 96791944}
-  speed: 5
   cylinder: {fileID: 6671108722322147492, guid: 545f481ef91f94c83b37ec948514b2b2,
     type: 3}
+  GameOverText: {fileID: 96791944}
+  ExperimentType: 
+  minNumCylinders: 40
+  maxNumCylinders: 40
   numTrials: 10
 --- !u!143 &307668658
 CharacterController:

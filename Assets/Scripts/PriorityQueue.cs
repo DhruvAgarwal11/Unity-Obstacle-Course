@@ -1,81 +1,96 @@
 ﻿using System;
 using System.Collections.Generic;
 
-public class PriorityQueue<TElement, TPriority>
+public class PriorityQueue<TPriority, TValue> where TPriority : IComparable<TPriority>
 {
-    private readonly List<(TElement element, TPriority priority)> items;
-    private readonly IComparer<TPriority> comparer;
+    private List<KeyValuePair<TPriority, TValue>> _baseHeap;
+    private IComparer<TPriority> _comparer;
 
-    public PriorityQueue() : this(null) { }
-
-    public PriorityQueue(IComparer<TPriority> comparer)
+    public PriorityQueue()
     {
-        this.comparer = comparer ?? Comparer<TPriority>.Default;
-        items = new List<(TElement, TPriority)>();
+        _baseHeap = new List<KeyValuePair<TPriority, TValue>>();
+        _comparer = Comparer<TPriority>.Default;
     }
 
-    public int Count => items.Count;
-
-    public void Enqueue(TElement element, TPriority priority)
+    public int Count
     {
-        items.Add((element, priority));
-        int childIndex = items.Count - 1;
+        get { return _baseHeap.Count; }
+    }
 
-        while (childIndex > 0)
+    public void Enqueue(TPriority priority, TValue value)
+    {
+        Insert(priority, value);
+    }
+
+    public KeyValuePair<TPriority, TValue> Dequeue()
+    {
+        if (!IsEmpty)
         {
-            int parentIndex = (childIndex - 1) / 2;
-
-            if (comparer.Compare(items[childIndex].priority, items[parentIndex].priority) >= 0)
-                break;
-
-            Swap(childIndex, parentIndex);
-            childIndex = parentIndex;
+            KeyValuePair<TPriority, TValue> result = _baseHeap[0];
+            DeleteRoot();
+            return result;
+        }
+        else
+        {
+            throw new InvalidOperationException("Priority queue is empty");
         }
     }
 
-    public TElement Dequeue()
+    public bool IsEmpty
     {
-        if (items.Count == 0)
-            throw new InvalidOperationException("PriorityQueue is empty.");
+        get { return _baseHeap.Count == 0; }
+    }
 
-        var dequeuedItem = items[0].element;
-        int lastIndex = items.Count - 1;
-        items[0] = items[lastIndex];
-        items.RemoveAt(lastIndex);
+    private void Insert(TPriority priority, TValue value)
+    {
+        KeyValuePair<TPriority, TValue> val = new KeyValuePair<TPriority, TValue>(priority, value);
+        _baseHeap.Add(val);
 
-        int parentIndex = 0;
-        int childIndex = 1;
+        int pos = _baseHeap.Count - 1;
+        int parentPos = (pos - 1) / 2;
 
-        while (childIndex < lastIndex)
+        while (pos > 0 && _comparer.Compare(_baseHeap[parentPos].Key, _baseHeap[pos].Key) > 0)
         {
-            int rightChildIndex = childIndex + 1;
+            Swap(parentPos, pos);
+            pos = parentPos;
+            parentPos = (pos - 1) / 2;
+        }
+    }
 
-            if (rightChildIndex < lastIndex && comparer.Compare(items[rightChildIndex].priority, items[childIndex].priority) < 0)
-                childIndex = rightChildIndex;
-
-            if (comparer.Compare(items[childIndex].priority, items[parentIndex].priority) >= 0)
-                break;
-
-            Swap(childIndex, parentIndex);
-            parentIndex = childIndex;
-            childIndex = 2 * parentIndex + 1;
+    private void DeleteRoot()
+    {
+        if (_baseHeap.Count <= 1)
+        {
+            _baseHeap.Clear();
+            return;
         }
 
-        return dequeuedItem;
+        _baseHeap[0] = _baseHeap[_baseHeap.Count - 1];
+        _baseHeap.RemoveAt(_baseHeap.Count - 1);
+
+        int pos = 0;
+        while (true)
+        {
+            int childPos = pos * 2 + 1;
+            if (childPos >= _baseHeap.Count) break;
+
+            int rightChildPos = childPos + 1;
+            if (rightChildPos < _baseHeap.Count && _comparer.Compare(_baseHeap[rightChildPos].Key, _baseHeap[childPos].Key) < 0)
+            {
+                childPos = rightChildPos;
+            }
+
+            if (_comparer.Compare(_baseHeap[pos].Key, _baseHeap[childPos].Key) <= 0) break;
+
+            Swap(pos, childPos);
+            pos = childPos;
+        }
     }
 
-    public TElement Peek()
+    private void Swap(int i, int j)
     {
-        if (items.Count == 0)
-            throw new InvalidOperationException("PriorityQueue is empty.");
-
-        return items[0].element;
-    }
-
-    private void Swap(int index1, int index2)
-    {
-        var temp = items[index1];
-        items[index1] = items[index2];
-        items[index2] = temp;
+        KeyValuePair<TPriority, TValue> tmp = _baseHeap[i];
+        _baseHeap[i] = _baseHeap[j];
+        _baseHeap[j] = tmp;
     }
 }

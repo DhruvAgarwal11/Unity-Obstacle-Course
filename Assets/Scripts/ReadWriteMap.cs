@@ -49,6 +49,7 @@ public static class ReadWriteMap
         {
             Debug.Log("An error occurred: " + e.Message);
         }
+        
         return new MapCoordinates(numCylinders, optimalPath, cylinders);
         
     }
@@ -58,7 +59,7 @@ public static class ReadWriteMap
         int numCylinders = mapC.getNumCylinders();
         ArrayList optimalPath = mapC.getOptimalPath();
         Vector3[] cylinders = mapC.getCylinderLocs();
-        string filePath = "./" + filename + ".txt";
+        string filePath = Path.Combine(Application.persistentDataPath, filename + ".txt");
         try
         {
             using (StreamWriter sw = new StreamWriter(filePath))

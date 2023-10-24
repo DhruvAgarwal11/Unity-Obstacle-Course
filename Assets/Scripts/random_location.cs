@@ -10,59 +10,61 @@ using static GenerateRandomMap;
 
 public class random_location : MonoBehaviour 
 {
+    public Text LivesRemainingText;
+    public GameObject cylinder;
+    public Text GameOverText;
+    public string ExperimentType; // define different types of trials that we want to have people do
+    public int minNumCylinders;
+    public int maxNumCylinders;
+    public int numTrials;
+    float speed = 3.5f;
     MapCoordinates mapCoordinates;
     Rigidbody cube_Rigidbody;
-    public Text LivesRemainingText;
-    public Text GameOverText;
-    public float speed = 3.5f;
     float x;
     float y;
     float z;
     Vector3 pos;
     float timePrev;
     float numFramesBeforeScoreDecrease;
-    int minNumCylinders;
-    int maxNumCylinders;
-    public GameObject cylinder;
     GameObject[] cylinders;
-    public int numTrials;
     int curTrialNum;
     Vector3 movement;
     bool gameOver;
     int numFramesBeforeNextTrial;
     Vector3 finalSpot = new Vector3(-22.0f, 1.0f, 0.0f);
     ArrayList finalList;
-    int curPointGoingTo = 0;
-    public string randomOrNew;
+    int curPointGoingTo;
+    bool startTrial;
     
     // Start is called before the first frame update
     void Start() 
     {
         Application.targetFrameRate = 50;
         numFramesBeforeScoreDecrease = Application.targetFrameRate;
-
-        numTrials = 10;
-
-        //number of obstacles
-        minNumCylinders = 60;
-        maxNumCylinders = 60;
-
         //find the cube in the scene
         cube_Rigidbody = GetComponent<Rigidbody>();
-        
         //start the first trial
         curTrialNum = 1;
-        StartNewTrial();
+        startTrial = false;
+        MainRunner();
     }
 
-    void StartNewTrial() 
+    void MainRunner() 
+    {
+        if (curTrialNum <= numTrials)
+        {
+            startTrial = false;
+            StartCoroutine(StartNewTrial());
+            startTrial = true;
+        }
+    }
+
+    IEnumerator StartNewTrial() 
     {
         gameOver = false;
         numFramesBeforeNextTrial = 200;
         Score.scoreStart(10);
-
         Score.displayGameOver(GameOverText, "");
-
         //Reset cube location
         x = 24.0F;
         y = 0.25F;
@@ -86,16 +88,26 @@ public class random_location : MonoBehaviour
         }
         
         //Generate random cylinders across the board
-        cylinders = new GameObject[Random.Range(minNumCylinders, maxNumCylinders)];
-
-        mapCoordinates = GenerateRandomMap.generateRandomMap(minNumCylinders, maxNumCylinders);
+        string filename = "./trial/" + curTrialNum;
+        mapCoordinates = GenerateRandomMap.generateRandomMap(minNumCylinders, maxNumCylinders, filename);
+        Debug.Log("Finding the optimal path through the map");
         finalList = mapCoordinates.getOptimalPath();
+        cylinders = new GameObject[mapCoordinates.getNumCylinders()];
+        Debug.Log(cylinders.Length);
+        Vector3[] cylinderLocs = mapCoordinates.getCylinderLocs();
+        foreach (var x in cylinderLocs) {
+            // Debug.Log(x);
+        }
+        for (int i = 0; i < cylinderLocs.Length; i++) {
+            cylinders[i] = Instantiate(cylinder, cylinderLocs[i], Quaternion.identity);
+        }
         curPointGoingTo = 0;
-        // ReadWriteMap.GameWriteMap("out", mapCoordinates)
+        ReadWriteMap.GameWriteMap("out", mapCoordinates);
         foreach(var a in finalList) 
         {
             Debug.Log(a);
         }
+        yield return new WaitForSeconds(0.25F);
     }
 
     void OnTriggerEnter(Collider other) 
@@ -120,49 +132,52 @@ public class random_location : MonoBehaviour
 
     // Update is called once per frame
     void Update() {
-        if (curPointGoingTo < finalList.Count) {
-            if (transform.position != (Vector3) finalList[curPointGoingTo]) {
-                transform.position = Vector3.MoveTowards(transform.position, (Vector3) finalList[curPointGoingTo], Time.deltaTime*speed);
-            } else {
-                curPointGoingTo++;
-            }
-        }
-
-        displayScore(LivesRemainingText);
-        float x = Input.GetAxis("Horizontal");
-        float z = Input.GetAxis("Vertical");
-        timePrev = Time.deltaTime;
-        if (!gameOver) 
-        {
-            if (checkGameEnd(transform.position.x, transform.position.z)) 
-            {
-                Score.displayGameOver(GameOverText, "You reached the target! Congrats!");
-                gameOver = true;
-                return;
-            }
-            else if (Score.getScore() == 0) 
-            {
-                gameOver = true;
-                return;
-            }
-            MoveObject(x, z, timePrev);
-        }
-        else 
-        {
-            numFramesBeforeNextTrial--;
-            if (numFramesBeforeNextTrial == 0) 
-            {
-                if (curTrialNum < numTrials) 
-                {
-                    curTrialNum++;
-                    StartNewTrial();
+        if (startTrial) {
+            // Debug.Log(curPointGoingTo);
+            // Debug.Log(finalList);
+            if (curPointGoingTo < finalList.Count) {
+                if (transform.position != (Vector3) finalList[curPointGoingTo]) {
+                    transform.position = Vector3.MoveTowards(transform.position, (Vector3) finalList[curPointGoingTo], Time.deltaTime*speed);
+                } else {
+                    curPointGoingTo++;
                 }
-                else 
+            }
+
+            displayScore(LivesRemainingText);
+            float x = Input.GetAxis("Horizontal");
+            float z = Input.GetAxis("Vertical");
+            timePrev = Time.deltaTime;
+            if (!gameOver) 
+            {
+                if (checkGameEnd(transform.position.x, transform.position.z)) 
                 {
-                    Score.displayGameOver(GameOverText, "Congrats, you finished all trials!");
-                    Debug.Log("Congrats, you finished all trials!");
-                    Application.Quit();
-                    Debug.Break(); //remove in production
+                    Score.displayGameOver(GameOverText, "You reached the target! Congrats!");
+                    gameOver = true;
+                    return;
+                }
+                else if (Score.getScore() == 0) 
+                {
+                    gameOver = true;
+                    return;
+                }
+                MoveObject(x, z, timePrev);
+            } else 
+            {
+                numFramesBeforeNextTrial--;
+                if (numFramesBeforeNextTrial == 0) 
+                {
+                    if (curTrialNum < numTrials) 
+                    {
+                        curTrialNum++;
+                        MainRunner();
+                    }
+                    else 
+                    {
+                        Score.displayGameOver(GameOverText, "Congrats, you finished all trials!");
+                        Debug.Log("Congrats, you finished all trials!");
+                        Application.Quit();
+                        Debug.Break(); //remove in production
+                    }
                 }
             }
         }
