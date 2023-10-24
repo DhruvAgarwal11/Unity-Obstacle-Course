@@ -103,10 +103,6 @@ public class random_location : MonoBehaviour
         }
         curPointGoingTo = 0;
         ReadWriteMap.GameWriteMap("out", mapCoordinates);
-        foreach(var a in finalList) 
-        {
-            Debug.Log(a);
-        }
         yield return new WaitForSeconds(0.25F);
     }
 
