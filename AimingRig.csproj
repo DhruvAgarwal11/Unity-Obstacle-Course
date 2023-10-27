@@ -262,6 +262,9 @@
  <Reference Include="log4netPlastic">
  <HintPath>/Users/dhruv/Desktop/obstaclecourserl/Library/PackageCache/com.unity.collab-proxy@1.14.13/Lib/Editor/PlasticSCM/log4netPlastic.dll</HintPath>
  </Reference>
+ <Reference Include="Newtonsoft.Json">
+ <HintPath>/Users/dhruv/Desktop/obstaclecourserl/Assets/WanzyeeStudio/ThirdParty/SaladLab/Json.Net.Unity3D/Plugins/Newtonsoft.Json.dll</HintPath>
+ </Reference>
  <Reference Include="netstandard">
  <HintPath>/Applications/Unity/Hub/Editor/2019.4.37f1/Unity.app/Contents/NetStandard/ref/2.0.0/netstandard.dll</HintPath>
  </Reference>

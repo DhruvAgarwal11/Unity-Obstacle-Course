@@ -5,7 +5,7 @@ using static System.Math;
 using System.Collections;
 using System.Collections.Generic;
 using Random=System.Random;
-using static OptimalPath;
+// using static OptimalPath;
 using static ReadWriteMap;
 
 public static class GenerateRandomMap{
@@ -19,16 +19,11 @@ public static class GenerateRandomMap{
         for (int i = 0; i < cylinderLocs.Length; i++) {
             RandomCylinderGenerator(cylinderLocs, i);
         }
-        // Debug.Log(cylinderLocs.Count);
-        // Dictionary<Vector3, ArrayList> initialCylinders = OptimalPath.CylindersNothingBetween(cylinderLocs);
-        // Debug.Log(initialCylinders.Count);
-        // Dictionary<Vector3, SortedDictionary<float, Vector3>> pointsToOtherPoints = OptimalPath.FilterPairsWithoutCylinders(initialCylinders, cylinderLocs);
-        // // Debug.Log("here");
-        // Debug.Log(pointsToOtherPoints.Count);
         ArrayList finalList = OptimalPathNew.GetShortestPath(cylinderLocs);
         Debug.Log(finalList.Count);
         MapCoordinates mpc = new MapCoordinates(cylinderLocs.Length, finalList, cylinderLocs);
         ReadWriteMap.GameWriteMap(filename, mpc);
+        ReadWriteMap.GameReadMap(filename);
         return mpc;
     }
 
@@ -57,9 +52,7 @@ public static class GenerateRandomMap{
                 }  
             }
             j++;
-            // if (j == 5) break;
         } while ((x <= -18.0 && z >= -2.0 && z <= 5.0) || (x > 18.0F && z >= -6.0F && z <= 6.0) || overlapping);
-        // Debug.Log(x + " " + y + " " + z);
         cylinderLocs[idx] = new Vector3(x, y, z);
     }
 

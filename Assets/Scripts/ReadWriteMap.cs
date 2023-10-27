@@ -5,79 +5,100 @@ using UnityEngine;
 using UnityEngine.UI;
 using static System.Math;
 using System;
+using Newtonsoft.Json;
 
 public static class ReadWriteMap 
 {
     public static MapCoordinates GameReadMap(string filename) 
     {
-        string filePath = "./" + filename + ".txt";
+        string filePath = Path.Combine(Application.persistentDataPath, filename + ".json");
         int numCylinders = 0;
         ArrayList optimalPath = new ArrayList();
         Vector3[] cylinders = new Vector3[0];
+
         try
         {
-            using (StreamReader sr = new StreamReader(filePath))
+            string jsonString = File.ReadAllText(filePath);
+            var jsonData = JsonConvert.DeserializeObject<JsonData>(jsonString);
+
+            numCylinders = jsonData.NumCylinders;
+            cylinders = new Vector3[numCylinders];
+
+            for (int i = 0; i < numCylinders; i++)
             {
-                string line;
-                int i = 0;
-                while ((line = sr.ReadLine()) != null)
-                {
-                    if (i == 0) 
-                    {
-                        numCylinders = int.Parse(line);
-                        cylinders = new Vector3[numCylinders];
-                    } 
-                    else if (numCylinders <= i) 
-                    {
-                        float x = float.Parse(line);
-                        float y = float.Parse(sr.ReadLine());
-                        float z = float.Parse(sr.ReadLine());
-                        cylinders[i] = new Vector3(x, y, z);
-                    } 
-                    else 
-                    {
-                        float x = float.Parse(line);
-                        float y = float.Parse(sr.ReadLine());
-                        float z = float.Parse(sr.ReadLine());
-                        optimalPath.Add(new Vector3(x, y, z));
-                    }
-                    i += 1;
-                }
+                cylinders[i] = new Vector3(jsonData.Cylinders[i].X, jsonData.Cylinders[i].Y, jsonData.Cylinders[i].Z);
+            }
+
+            foreach (var path in jsonData.OptimalPath)
+            {
+                optimalPath.Add(new Vector3(path.X, path.Y, path.Z));
             }
         }
         catch (Exception e)
         {
             Debug.Log("An error occurred: " + e.Message);
         }
-        
+        Debug.Log(numCylinders);
+        Debug.Log(cylinders[0]);
+        Debug.Log(optimalPath[0]);
         return new MapCoordinates(numCylinders, optimalPath, cylinders);
-        
     }
 
+    [Serializable]
+    public class JsonData
+    {
+        public int NumCylinders;
+        public VectorData[] Cylinders;
+        public VectorData[] OptimalPath;
+    }
+
+    [Serializable]
+    public class VectorData
+    {
+        public float X;
+        public float Y;
+        public float Z;
+    }
+
+    
     public static void GameWriteMap(string filename, MapCoordinates mapC) 
     {
         int numCylinders = mapC.getNumCylinders();
         ArrayList optimalPath = mapC.getOptimalPath();
         Vector3[] cylinders = mapC.getCylinderLocs();
-        string filePath = Path.Combine(Application.persistentDataPath, filename + ".txt");
+        string filePath = Path.Combine(Application.persistentDataPath, filename + ".json");
+        (new FileInfo(filePath)).Directory.Create();
+
+        // Create a data structure for JSON serialization
+        var convertedCylinders = Array.ConvertAll(cylinders, cylinder => new VectorData 
+        {
+            X = cylinder.x,
+            Y = cylinder.y,
+            Z = cylinder.z
+        });
+        var jsonData = new 
+        {
+            NumCylinders = numCylinders,
+            Cylinders = Array.ConvertAll(cylinders, cylinder => new 
+            {
+                X = cylinder.x,
+                Y = cylinder.y,
+                Z = cylinder.z
+            }),
+            OptimalPath = Array.ConvertAll(optimalPath.ToArray(), path => new 
+            {
+                X = ((Vector3)path).x,
+                Y = ((Vector3)path).y,
+                Z = ((Vector3)path).z
+            })
+        };
+
+        // Convert the data structure to a JSON string
+        string jsonString = JsonConvert.SerializeObject(jsonData);
         try
         {
-            using (StreamWriter sw = new StreamWriter(filePath))
-            {
-                sw.WriteLine(numCylinders);
-                foreach (Vector3 cylinder in cylinders) 
-                {
-                    sw.WriteLine(cylinder.x);
-                    sw.WriteLine(cylinder.y);
-                    sw.WriteLine(cylinder.z);
-                }
-                for (int i = 0; i < optimalPath.Count; i++) 
-                {
-                    sw.WriteLine(((Vector3)optimalPath[i]).x);
-                    sw.WriteLine(((Vector3)optimalPath[i]).y);
-                    sw.WriteLine(((Vector3)optimalPath[i]).z);
-                }
-            }
+            File.WriteAllText(filePath, jsonString);
+            Debug.Log(filePath);
             Debug.Log("Data written to the file.");
         }
         catch (Exception e)
