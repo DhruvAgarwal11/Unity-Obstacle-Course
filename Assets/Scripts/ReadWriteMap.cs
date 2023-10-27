@@ -38,9 +38,6 @@ public static class ReadWriteMap
         {
             Debug.Log("An error occurred: " + e.Message);
         }
-        Debug.Log(numCylinders);
-        Debug.Log(cylinders[0]);
-        Debug.Log(optimalPath[0]);
         return new MapCoordinates(numCylinders, optimalPath, cylinders);
     }
 
