@@ -89,15 +89,16 @@ public class random_location : MonoBehaviour
         
         //Generate random cylinders across the board
         string filename = "./trial/" + curTrialNum;
+        //For Writing to a file
         mapCoordinates = GenerateRandomMap.generateRandomMap(minNumCylinders, maxNumCylinders, filename);
-        Debug.Log("Finding the optimal path through the map");
+
+        //For Reading from the file
+        // mapCoordinates = GenerateRandomMap.getMap("/Users/dhruv/Library/Application Support/DefaultCompany/Obstacle Course/trial/1");
+
         finalList = mapCoordinates.getOptimalPath();
         cylinders = new GameObject[mapCoordinates.getNumCylinders()];
         Debug.Log(cylinders.Length);
         Vector3[] cylinderLocs = mapCoordinates.getCylinderLocs();
-        foreach (var x in cylinderLocs) {
-            // Debug.Log(x);
-        }
         for (int i = 0; i < cylinderLocs.Length; i++) {
             cylinders[i] = Instantiate(cylinder, cylinderLocs[i], Quaternion.identity);
         }

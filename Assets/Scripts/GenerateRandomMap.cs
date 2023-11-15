@@ -27,6 +27,12 @@ public static class GenerateRandomMap{
         return mpc;
     }
 
+    public static MapCoordinates getMap(string filename) {
+        Random random = new Random();
+        MapCoordinates mpc = ReadWriteMap.GameReadMap(filename);
+        return mpc;
+    }
+
     /**
     Determines whether the cylinder is located on top of 
     */
