@@ -20,6 +20,7 @@ public static class GenerateRandomMap{
             RandomCylinderGenerator(cylinderLocs, i);
         }
         ArrayList finalList = OptimalPathNew.GetShortestPath(cylinderLocs);
+        Debug.Log(finalList);
         Debug.Log(finalList.Count);
         MapCoordinates mpc = new MapCoordinates(cylinderLocs.Length, finalList, cylinderLocs);
         ReadWriteMap.GameWriteMap(filename, mpc);

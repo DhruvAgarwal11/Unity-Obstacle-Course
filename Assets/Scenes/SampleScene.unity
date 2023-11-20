@@ -481,7 +481,7 @@ MonoBehaviour:
   ExperimentType: 
   minNumCylinders: 40
   maxNumCylinders: 40
-  numTrials: 10
+  numTrials: 100
 --- !u!143 &307668658
 CharacterController:
   m_ObjectHideFlags: 0

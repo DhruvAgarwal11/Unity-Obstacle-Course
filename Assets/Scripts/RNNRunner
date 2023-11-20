@@ -1,0 +1,49 @@
+using UnityEngine;
+using Unity.Barracuda;
+
+public class ONNXModelPredictor : MonoBehaviour
+{
+    public NNModel modelAsset; // Assign your ONNX model in the Inspector
+
+    private Model runtimeModel;
+    private IWorker worker;
+
+    void Start()
+    {
+        runtimeModel = ModelLoader.Load(modelAsset);
+        worker = WorkerFactory.CreateWorker(WorkerFactory.Type.ComputePrecompiled, runtimeModel);
+    }
+
+    void Update()
+    {
+        // Prepare your model inputs (e.g., participant_input and cylinder_input)
+        // Example: Assuming participant_input is a [1, 5, 2] tensor and cylinder_input is a [1, 80] tensor
+        Tensor participantInputTensor = new Tensor(1, 5, 2); // Replace with actual data
+        Tensor cylinderInputTensor = new Tensor(1, 80); // Replace with actual data
+
+        // Execute the model
+        worker.Execute(participantInputTensor);
+        worker.Execute(cylinderInputTensor);
+
+        // Fetch the output
+        Tensor output = worker.PeekOutput();
+
+        // Process the output
+        // Example: Read the output data
+        for (int i = 0; i < output.length; i++)
+        {
+            float value = output[i];
+            // Process the value as needed
+        }
+
+        // Dispose of tensors to free memory
+        participantInputTensor.Dispose();
+        cylinderInputTensor.Dispose();
+        output.Dispose();
+    }
+
+    void OnDestroy()
+    {
+        worker.Dispose();
+    }
+}

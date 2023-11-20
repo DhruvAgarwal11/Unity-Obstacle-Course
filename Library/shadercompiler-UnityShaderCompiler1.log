@@ -1,5 +1,314 @@
 Base path: '/Applications/Unity/Hub/Editor/2019.4.37f1/Unity.app/Contents', plugins path '/Applications/Unity/Hub/Editor/2019.4.37f1/Unity.app/Contents/PlaybackEngines'
 Cmd: initializeCompiler
-Cmd: compileSnippet
-  api=14 type=0 insize=1602 outsize=4151 kw=UNITY_PASS_FORWARDBASE DIRECTIONAL SHADOWS_SCREEN LIGHTPROBE_SH _EMISSION pd=UNITY_ENABLE_REFLECTION_BUFFERS UNITY_USE_DITHER_MASK_FOR_ALPHABLENDED_SHADOWS UNITY_PBS_USE_BRDF1 UNITY_SPECCUBE_BOX_PROJECTION UNITY_SPECCUBE_BLENDING UNITY_ENABLE_DETAIL_NORMALMAP SHADER_API_DESKTOP UNITY_COLORSPACE_GAMMA UNITY_LIGHT_PROBE_PROXY_VOLUME UNITY_LIGHTMAP_FULL_HDR ok=1
-Cmd: shutdown
+Cmd: compileComputeKernel
+  api=14 insize=775 outsize=14064 ok=1
+Cmd: compileComputeKernel
+  api=14 insize=1069 outsize=3213 ok=1
+Cmd: compileComputeKernel
+  api=14 insize=1069 outsize=3359 ok=1
+Cmd: translateComputeKernel
+  api=14 insize=3320 outsize=3796 ok=1
+Cmd: translateComputeKernel
+  api=14 insize=3714 outsize=4389 ok=1
+Cmd: translateComputeKernel
+  api=14 insize=4634 outsize=8122 ok=1
+Cmd: compileComputeKernel
+  api=14 insize=331 outsize=2544 ok=1
+Cmd: translateComputeKernel
+  api=14 insize=2568 outsize=2449 ok=1
+Cmd: compileComputeKernel
+  api=14 insize=759 outsize=2650 ok=1
+Cmd: compileComputeKernel
+  api=14 insize=759 outsize=2594 ok=1
+Cmd: compileComputeKernel
+  api=14 insize=759 outsize=2577 ok=1
+Cmd: translateComputeKernel
+  api=14 insize=1442 outsize=1304 ok=1
+Cmd: compileComputeKernel
+  api=14 insize=3405 outsize=36306 ok=1
+Cmd: compileComputeKernel
+  api=14 insize=3405 outsize=36622 ok=1
+Cmd: translateComputeKernel
+  api=14 insize=36340 outsize=72135 ok=1
+Cmd: compileComputeKernel
+  api=14 insize=13751 outsize=3174 ok=1
+Cmd: compileComputeKernel
+  api=14 insize=13751 outsize=3523 ok=1
+Cmd: compileComputeKernel
+  api=14 insize=13751 outsize=3529 ok=1
+Cmd: translateComputeKernel
+  api=14 insize=3849 outsize=4270 ok=1
+Cmd: translateComputeKernel
+  api=14 insize=4762 outsize=5810 ok=1
+Cmd: compileComputeKernel
+  api=14 insize=20821 outsize=19776 ok=1
+Cmd: translateComputeKernel
+  api=14 insize=19778 outsize=37728 ok=1
+Cmd: compileComputeKernel
+  api=14 insize=89748 outsize=5334 ok=1
+Cmd: compileComputeKernel
+  api=14 insize=89748 outsize=5855 ok=1
+Cmd: compileComputeKernel
+  api=14 insize=89748 outsize=3858 ok=1
+Cmd: compileComputeKernel
+  api=14 insize=89748 outsize=3713 ok=1
+Cmd: compileComputeKernel
+  api=14 insize=89748 outsize=4269 ok=1
+Cmd: compileComputeKernel
+  api=14 insize=89748 outsize=3719 ok=1
+Cmd: compileComputeKernel
+  api=14 insize=89748 outsize=5636 ok=1
+Cmd: compileComputeKernel
+  api=14 insize=89748 outsize=5597 ok=1
+Cmd: compileComputeKernel
+  api=14 insize=89748 outsize=3778 ok=1
+Cmd: compileComputeKernel
+  api=14 insize=89748 outsize=5704 ok=1
+Cmd: compileComputeKernel
+  api=14 insize=89748 outsize=5757 ok=1
+Cmd: compileComputeKernel
+  api=14 insize=89748 outsize=5623 ok=1
+Cmd: compileComputeKernel
+  api=14 insize=89748 outsize=5940 ok=1
+Cmd: compileComputeKernel
+  api=14 insize=89748 outsize=5692 ok=1
+Cmd: compileComputeKernel
+  api=14 insize=89748 outsize=5599 ok=1
+Cmd: compileComputeKernel
+  api=14 insize=89748 outsize=5699 ok=1
+Cmd: compileComputeKernel
+  api=14 insize=89748 outsize=7367 ok=1
+Cmd: compileComputeKernel
+  api=14 insize=89748 outsize=7803 ok=1
+Cmd: compileComputeKernel
+  api=14 insize=89748 outsize=7392 ok=1
+Cmd: compileComputeKernel
+  api=14 insize=89748 outsize=7393 ok=1
+Cmd: compileComputeKernel
+  api=14 insize=89748 outsize=5638 ok=1
+Cmd: compileComputeKernel
+  api=14 insize=89748 outsize=5790 ok=1
+Cmd: compileComputeKernel
+  api=14 insize=89748 outsize=5533 ok=1
+Cmd: compileComputeKernel
+  api=14 insize=89748 outsize=3677 ok=1
+Cmd: compileComputeKernel
+  api=14 insize=89748 outsize=5979 ok=1
+Cmd: compileComputeKernel
+  api=14 insize=89748 outsize=4526 ok=1
+Cmd: compileComputeKernel
+  api=14 insize=89748 outsize=4314 ok=1
+Cmd: compileComputeKernel
+  api=14 insize=89748 outsize=7317 ok=1
+Cmd: translateComputeKernel
+  api=14 insize=6764 outsize=9758 ok=1
+Cmd: translateComputeKernel
+  api=14 insize=5630 outsize=6326 ok=1
+Cmd: translateComputeKernel
+  api=14 insize=5662 outsize=6415 ok=1
+Cmd: translateComputeKernel
+  api=14 insize=4488 outsize=4224 ok=1
+Cmd: translateComputeKernel
+  api=14 insize=4658 outsize=4540 ok=1
+Cmd: translateComputeKernel
+  api=14 insize=4435 outsize=4274 ok=1
+Cmd: translateComputeKernel
+  api=14 insize=6779 outsize=8929 ok=1
+Cmd: translateComputeKernel
+  api=14 insize=6354 outsize=8281 ok=1
+Cmd: translateComputeKernel
+  api=14 insize=4606 outsize=4400 ok=1
+Cmd: translateComputeKernel
+  api=14 insize=6427 outsize=8439 ok=1
+Cmd: translateComputeKernel
+  api=14 insize=6532 outsize=8684 ok=1
+Cmd: translateComputeKernel
+  api=14 insize=6791 outsize=9227 ok=1
+Cmd: translateComputeKernel
+  api=14 insize=6445 outsize=8588 ok=1
+Cmd: translateComputeKernel
+  api=14 insize=6424 outsize=8490 ok=1
+Cmd: translateComputeKernel
+  api=14 insize=6931 outsize=9717 ok=1
+Cmd: translateComputeKernel
+  api=14 insize=4608 outsize=4824 ok=1
+Cmd: translateComputeKernel
+  api=14 insize=8029 outsize=12603 ok=1
+Cmd: translateComputeKernel
+  api=14 insize=8465 outsize=13658 ok=1
+Cmd: translateComputeKernel
+  api=14 insize=8110 outsize=12697 ok=1
+Cmd: translateComputeKernel
+  api=14 insize=8059 outsize=12665 ok=1
+Cmd: translateComputeKernel
+  api=14 insize=6416 outsize=8492 ok=1
+Cmd: translateComputeKernel
+  api=14 insize=6522 outsize=9129 ok=1
+Cmd: translateComputeKernel
+  api=14 insize=6385 outsize=8606 ok=1
+Cmd: translateComputeKernel
+  api=14 insize=4596 outsize=4434 ok=1
+Cmd: translateComputeKernel
+  api=14 insize=5144 outsize=5550 ok=1
+Cmd: translateComputeKernel
+  api=14 insize=6588 outsize=8731 ok=1
+Cmd: translateComputeKernel
+  api=14 insize=5301 outsize=6107 ok=1
+Cmd: translateComputeKernel
+  api=14 insize=6594 outsize=8865 ok=1
+Cmd: translateComputeKernel
+  api=14 insize=7962 outsize=11403 ok=1
+Cmd: compileComputeKernel
+  api=14 insize=467 outsize=5216 ok=1
+Cmd: translateComputeKernel
+  api=14 insize=8125 outsize=13904 ok=1
+Cmd: compileComputeKernel
+  api=14 insize=15390 outsize=4087 ok=1
+Cmd: compileComputeKernel
+  api=14 insize=15390 outsize=4532 ok=1
+Cmd: compileComputeKernel
+  api=14 insize=15390 outsize=4023 ok=1
+Cmd: compileComputeKernel
+  api=14 insize=15390 outsize=4552 ok=1
+Cmd: translateComputeKernel
+  api=14 insize=4580 outsize=8089 ok=1
+Cmd: translateComputeKernel
+  api=14 insize=4229 outsize=6292 ok=1
+Cmd: translateComputeKernel
+  api=14 insize=5286 outsize=9751 ok=1
+Cmd: compileComputeKernel
+  api=14 insize=67361 outsize=4460 ok=1
+Cmd: compileComputeKernel
+  api=14 insize=67361 outsize=18519 ok=1
+Cmd: translateComputeKernel
+  api=14 insize=4494 outsize=6334 ok=1
+Cmd: translateComputeKernel
+  api=14 insize=7945 outsize=14249 ok=1
+Cmd: translateComputeKernel
+  api=14 insize=12387 outsize=24092 ok=1
+Cmd: translateComputeKernel
+  api=14 insize=11221 outsize=20541 ok=1
+Cmd: translateComputeKernel
+  api=14 insize=10867 outsize=20104 ok=1
+Cmd: translateComputeKernel
+  api=14 insize=5076 outsize=6303 ok=1
+Cmd: compileComputeKernel
+  api=14 insize=76423 outsize=14304 ok=1
+Cmd: translateComputeKernel
+  api=14 insize=9908 outsize=17864 ok=1
+Cmd: compileComputeKernel
+  api=14 insize=467 outsize=4999 ok=1
+Cmd: translateComputeKernel
+  api=14 insize=5257 outsize=8320 ok=1
+Cmd: compileComputeKernel
+  api=14 insize=13363 outsize=12719 ok=1
+Cmd: translateComputeKernel
+  api=14 insize=12719 outsize=23711 ok=1
+Cmd: compileComputeKernel
+  api=14 insize=1069 outsize=3213 ok=1
+Cmd: compileComputeKernel
+  api=14 insize=1069 outsize=3247 ok=1
+Cmd: compileComputeKernel
+  api=14 insize=1069 outsize=3617 ok=1
+Cmd: translateComputeKernel
+  api=14 insize=3316 outsize=3797 ok=1
+Cmd: translateComputeKernel
+  api=14 insize=3467 outsize=4052 ok=1
+Cmd: translateComputeKernel
+  api=14 insize=2296 outsize=2246 ok=1
+Cmd: compileComputeKernel
+  api=14 insize=776 outsize=11509 ok=1
+Cmd: compileComputeKernel
+  api=14 insize=11209 outsize=2417 ok=1
+Cmd: compileComputeKernel
+  api=14 insize=11209 outsize=2510 ok=1
+Cmd: compileComputeKernel
+  api=14 insize=11209 outsize=2617 ok=1
+Cmd: compileComputeKernel
+  api=14 insize=11209 outsize=2441 ok=1
+Cmd: compileComputeKernel
+  api=14 insize=11209 outsize=1228 ok=1
+Cmd: compileComputeKernel
+  api=14 insize=11209 outsize=2821 ok=1
+Cmd: compileComputeKernel
+  api=14 insize=11209 outsize=2527 ok=1
+Cmd: compileComputeKernel
+  api=14 insize=11209 outsize=2626 ok=1
+Cmd: compileComputeKernel
+  api=14 insize=11209 outsize=1157 ok=1
+Cmd: compileComputeKernel
+  api=14 insize=11209 outsize=3017 ok=1
+Cmd: compileComputeKernel
+  api=14 insize=11209 outsize=3061 ok=1
+Cmd: compileComputeKernel
+  api=14 insize=11209 outsize=3264 ok=1
+Cmd: compileComputeKernel
+  api=14 insize=11209 outsize=3086 ok=1
+Cmd: compileComputeKernel
+  api=14 insize=11209 outsize=3080 ok=1
+Cmd: compileComputeKernel
+  api=14 insize=11209 outsize=3142 ok=1
+Cmd: compileComputeKernel
+  api=14 insize=11209 outsize=3051 ok=1
+Cmd: compileComputeKernel
+  api=14 insize=11209 outsize=3109 ok=1
+Cmd: compileComputeKernel
+  api=14 insize=11209 outsize=3336 ok=1
+Cmd: compileComputeKernel
+  api=14 insize=11209 outsize=3368 ok=1
+Cmd: compileComputeKernel
+  api=14 insize=11209 outsize=3568 ok=1
+Cmd: compileComputeKernel
+  api=14 insize=11209 outsize=3027 ok=1
+Cmd: compileComputeKernel
+  api=14 insize=11209 outsize=3027 ok=1
+Cmd: compileComputeKernel
+  api=14 insize=11209 outsize=3061 ok=1
+Cmd: compileComputeKernel
+  api=14 insize=11209 outsize=3564 ok=1
+Cmd: translateComputeKernel
+  api=14 insize=1410 outsize=1226 ok=1
+Cmd: translateComputeKernel
+  api=14 insize=2813 outsize=2601 ok=1
+Cmd: translateComputeKernel
+  api=14 insize=2696 outsize=2488 ok=1
+Cmd: translateComputeKernel
+  api=14 insize=2651 outsize=2383 ok=1
+Cmd: translateComputeKernel
+  api=14 insize=2757 outsize=2656 ok=1
+Cmd: translateComputeKernel
+  api=14 insize=2722 outsize=2499 ok=1
+Cmd: translateComputeKernel
+  api=14 insize=2726 outsize=2489 ok=1
+Cmd: translateComputeKernel
+  api=14 insize=2717 outsize=2487 ok=1
+Cmd: translateComputeKernel
+  api=14 insize=2781 outsize=2617 ok=1
+Cmd: translateComputeKernel
+  api=14 insize=3212 outsize=3288 ok=1
+Cmd: translateComputeKernel
+  api=14 insize=3763 outsize=4545 ok=1
+Cmd: translateComputeKernel
+  api=14 insize=3270 outsize=3737 ok=1
+Cmd: translateComputeKernel
+  api=14 insize=3230 outsize=3536 ok=1
+Cmd: translateComputeKernel
+  api=14 insize=3212 outsize=3500 ok=1
+Cmd: translateComputeKernel
+  api=14 insize=3229 outsize=3522 ok=1
+Cmd: translateComputeKernel
+  api=14 insize=3434 outsize=4066 ok=1
+Cmd: translateComputeKernel
+  api=14 insize=3506 outsize=4131 ok=1
+Cmd: translateComputeKernel
+  api=14 insize=3706 outsize=4376 ok=1
+Cmd: translateComputeKernel
+  api=14 insize=3125 outsize=3574 ok=1
+Cmd: translateComputeKernel
+  api=14 insize=3125 outsize=3574 ok=1
+Cmd: translateComputeKernel
+  api=14 insize=3157 outsize=3654 ok=1
+Cmd: compileComputeKernel
+  api=14 insize=4497 outsize=2873 ok=1
+Cmd: compileComputeKernel
+  api=14 insize=1900 outsize=4694 ok=1

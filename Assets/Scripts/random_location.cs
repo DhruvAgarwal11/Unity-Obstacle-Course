@@ -53,58 +53,63 @@ public class random_location : MonoBehaviour
     {
         if (curTrialNum <= numTrials)
         {
-            startTrial = false;
+            //startTrial = false;
             StartCoroutine(StartNewTrial());
-            startTrial = true;
+            //startTrial = true;
         }
     }
 
     IEnumerator StartNewTrial() 
     {
-        gameOver = false;
-        numFramesBeforeNextTrial = 200;
-        Score.scoreStart(10);
-        Score.displayGameOver(GameOverText, "");
-        //Reset cube location
-        x = 24.0F;
-        y = 0.25F;
-        z = 0.0F;
-        pos = new Vector3(x, y, z);
-        transform.position = pos;
+        // gameOver = false;
+        // numFramesBeforeNextTrial = 200;
+        // Score.scoreStart(10);
+        // Score.displayGameOver(GameOverText, "");
+        // //Reset cube location
+        // x = 24.0F;
+        // y = 0.25F;
+        // z = 0.0F;
+        // pos = new Vector3(x, y, z);
+        // transform.position = pos;
 
-        //Time between previous frame and current frame
-        timePrev = 0;
+        // //Time between previous frame and current frame
+        // timePrev = 0;
 
-        //Destroy cylinders 
-        if (curTrialNum != 1) 
-        {
-            foreach (GameObject curCylinder in cylinders) 
-            {
-                if (curCylinder != null) 
-                {
-                    Destroy(curCylinder);
-                }  
-            }
-        }
+        // //Destroy cylinders 
+        // if (curTrialNum != 1) 
+        // {
+        //     foreach (GameObject curCylinder in cylinders) 
+        //     {
+        //         if (curCylinder != null) 
+        //         {
+        //             Destroy(curCylinder);
+        //         }  
+        //     }
+        // }
         
         //Generate random cylinders across the board
-        string filename = "./trial/" + curTrialNum;
-        //For Writing to a file
-        mapCoordinates = GenerateRandomMap.generateRandomMap(minNumCylinders, maxNumCylinders, filename);
+        while (curTrialNum < numTrials) {
+            string filename = "./trial/" + (curTrialNum + 945);
+            //For Writing to a file
+            mapCoordinates = GenerateRandomMap.generateRandomMap(minNumCylinders, maxNumCylinders, filename);
+            curTrialNum += 1;
+        }
+        
+        yield return null;
 
         //For Reading from the file
         // mapCoordinates = GenerateRandomMap.getMap("/Users/dhruv/Library/Application Support/DefaultCompany/Obstacle Course/trial/1");
 
-        finalList = mapCoordinates.getOptimalPath();
-        cylinders = new GameObject[mapCoordinates.getNumCylinders()];
-        Debug.Log(cylinders.Length);
-        Vector3[] cylinderLocs = mapCoordinates.getCylinderLocs();
-        for (int i = 0; i < cylinderLocs.Length; i++) {
-            cylinders[i] = Instantiate(cylinder, cylinderLocs[i], Quaternion.identity);
-        }
-        curPointGoingTo = 0;
-        ReadWriteMap.GameWriteMap("out", mapCoordinates);
-        yield return new WaitForSeconds(0.25F);
+        // finalList = mapCoordinates.getOptimalPath();
+        // cylinders = new GameObject[mapCoordinates.getNumCylinders()];
+        // Debug.Log(cylinders.Length);
+        // Vector3[] cylinderLocs = mapCoordinates.getCylinderLocs();
+        // for (int i = 0; i < cylinderLocs.Length; i++) {
+        //     cylinders[i] = Instantiate(cylinder, cylinderLocs[i], Quaternion.identity);
+        // }
+        // curPointGoingTo = 0;
+        // ReadWriteMap.GameWriteMap("out", mapCoordinates);
+        // yield return new WaitForSeconds(0.25F);
     }
 
     void OnTriggerEnter(Collider other) 
